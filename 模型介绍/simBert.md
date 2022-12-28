@@ -13,10 +13,10 @@ SimBERT主要是有两个部分构成：
 + 第二块是构建语义相似度任务，会根据文本对应的CLS向量来计算相似度。
 因为有seq2seq任务生成相似度文本部分，所以simbert具备了文本相似度；因为语义相似度部分，具备了文本检索能力。
 UniLM的核心是通过特殊的Attention Mask来赋予模型具有Seq2Seq的能力。假如输入是“你想吃啥”，目标句子是“白切鸡”，那UNILM将这两个句子拼成一个：[CLS] 你 想 吃 啥 [SEP] 白 切 鸡 [SEP]，然后接如图的Attention Mask：
-![image](https://user-images.githubusercontent.com/66345340/209788374-c4fff1e3-9d36-4f0e-99c0-91805e58e400.png)
+<div align='center' ><img width="500" height="400" alt="1852906-20220623161931007-1534771153" src="https://user-images.githubusercontent.com/66345340/209788374-c4fff1e3-9d36-4f0e-99c0-91805e58e400.png"></div>
 
 换句话说，**[CLS] 你 想 吃 啥 [SEP]** 这几个token之间是双向的Attention，而**白 切 鸡 [SEP]** 这几个token则是单向Attention，从而允许递归地预测 **白 切 鸡 [SEP]** 这几个token，所以它具备文本生成能力。
-![image](https://user-images.githubusercontent.com/66345340/209788511-1b3cd036-07fb-4c53-acf1-c6a1416f919c.png)
+<div align='center' ><img width="600" height="200" alt="1852906-20220623161931007-1534771153" src="https://user-images.githubusercontent.com/66345340/209788511-1b3cd036-07fb-4c53-acf1-c6a1416f919c.png"></div>
 UNILM做Seq2Seq模型图示。输入部分内部可做双向Attention，输出部分只做单向Attention。
 
 Seq2Seq只能说明UniLM具有NLG的能力，那前面为什么说它同时具备**NLU和NLG** 能力呢？因为UniLM特殊的Attention Mask，所以 **[CLS] 你 想 吃 啥 [SEP]** 这6个token只在它们之间相互做Attention，而跟**白 切 鸡 [SEP]** 完全没关系，这就意味着，尽管后面拼接**白 切 鸡 [SEP]** ，但这不会影响到前6个编码向量。再说明白一点，那就是前6个编码向量等价于只有 **[CLS] 你 想 吃 啥 [SEP]** 时的编码结果，如果 **[CLS]的向量代表着句向量** ，那么它就是**你 想 吃 啥** 的句向量，**而不是加上白 切 鸡后的句向量**。
