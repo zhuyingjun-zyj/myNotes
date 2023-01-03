@@ -2,7 +2,7 @@
 
 ### 概念
 
-ELECTRA 的全称是：Efficiently Learning an Encoder that Classifies Token Replacements Accurately。是这几年一个比较创新的模型，从模型架构和预训练任务都和BERT有一定程度的不同。目前的SOTA语言表示学习方法可以看做是在学习一个**去噪自编码器**（denoising autoencoder），也就是**Masked Language Modeling（MLM）**的方法，它们选择无标注的输入序列的一小部分（通常15%），然后将这一部分mask掉（比如BERT），或者attend到这些token（比如XLNet），然后训练整个网络来还原原来的输入。但是electra其提出了Replaced Token Detection(RTD)，**字符替换探测**的训练方式。
+ELECTRA 的全称是：Efficiently Learning an Encoder that Classifies Token Replacements Accurately。是这几年一个比较创新的模型，从模型架构和预训练任务都和BERT有一定程度的不同。目前的SOTA语言表示学习方法可以看做是在学习一个**去噪自编码器**（denoising autoencoder），也就是**Masked Language Modeling（MLM**的方法，它们选择无标注的输入序列的一小部分（通常15%），然后将这一部分mask掉（比如BERT），或者attend到这些token（比如XLNet），然后训练整个网络来还原原来的输入。但是electra其提出了Replaced Token Detection(RTD)，**字符替换探测**的训练方式。
 
 
 ### 模型结构
